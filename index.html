@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Corazón Canino & Felino - Inicio</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: url('img/newfondo.jpg') no-repeat center center / cover;
+      color: #010101;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: #15d30b;
+      color: rgb(255, 255, 255);
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    nav a {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    #loginBtn, #logoutBtn {
+      background: #fff;
+      color: #2dda0f;
+      border: none;
+      padding: 6px 12px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-left: 10px;
+    }
+
+    #loginBtn:hover, #logoutBtn:hover {
+      background: #ffc299;
+    }
+
+    #userGreeting {
+      color: #004d4d;
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0.5rem 2rem 0 2rem;
+      display: none;
+    }
+
+    main {
+      flex-grow: 1;
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #34d714;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .history-section {
+      margin-top: 2rem;
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .history-section h2 {
+      color: #2acb14;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .history-text p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #444;
+      margin-bottom: 1.5rem;
+    }
+
+    .zipzap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Alternancia zip-zap */
+    .zipzap.left {
+      flex-direction: row;
+    }
+
+    .zipzap.right {
+      flex-direction: row-reverse;
+    }
+
+    .zipzap img {
+      width: 45%;
+      max-width: 400px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      object-fit: cover;
+      height: auto;
+    }
+
+    .zipzap .text {
+      width: 50%;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #444;
+    }
+
+    /* Resaltar textos */
+    .highlight-black {
+      font-weight: bold;
+      color: black;
+    }
+
+    .highlight-green {
+      font-weight: bold;
+      color: #004d00;
+    }
+
+    @media (max-width: 700px) {
+      .zipzap {
+        flex-direction: column !important;
+      }
+      .zipzap img, .zipzap .text {
+        width: 100%;
+      }
+    }
+
+    footer {
+      background: #26e105;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-weight: 600;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="img/logo veterinaria.jpg" alt="Logo" />
+    Corazón Canino & Felino
+  </div>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="servicios.html">Servicios</a>
+    <a href="productos.html">Productos</a>
+    <a href="expediente.html">Expediente</a>
+    <a href="contacto.html">Contacto</a>
+    <button id="loginBtn" onclick="window.location.href='login.html'">Iniciar Sesión</button>
+    <button id="logoutBtn" style="display:none;">Cerrar Sesión</button>
+  </nav>
+</header>
+
+<span id="userGreeting"></span>
+
+<main>
+  <h1>Bienvenido a Corazón Canino & Felino</h1>
+  <p style="text-align:center;">¡Gracias por confiar en nosotros para cuidar a tus mascotas!</p>
+
+  <!-- Promoción destacada fuera de la historia -->
+  <div style="
+    max-width: 900px;
+    margin: 2rem auto;
+    background: #22a20ccc;
+    color: white;
+    font-weight: 700;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    text-align: center;
+    font-size: 1.1rem;
+  ">
+    Promoción: Primera consulta con 50% de descuento. ¡Cuida a tu mascota desde el primer día!
+  </div>
+    <div class="history-text">
+      <!-- aquí va todo el contenido zipzap left y right de la historia -->
+      ...
+    </div>
+  </section>
+</main>
+
+  <section class="history-section">
+    <h2>Nuestra Historia</h2>
+
+   
+    <div class="history-text">
+
+      <div class="zipzap left">
+        <img src="img/familia.jpg" alt="Veterinaria con perro" />
+        <div class="text">
+          <p><span class="highlight-black">Bienvenido a Corazón Canino y Felino:</span> Tu Familia para su Salud. En el Hospital Veterinario Corazón Canino y Felino, creemos que tu mascota merece lo mejor: un cuidado excepcional y el calor de un hogar. Somos más que una clínica; somos una familia dedicada al bienestar de cada peludo que llega a nuestras puertas en El Salvador.</p>
+        </div>
+      </div>
+
+      <div class="zipzap right">
+        <img src="img/historia.webp" alt="Perro en consulta veterinaria" />
+        <div class="text">
+          <p>Todo empezó hace más de 15 años en San Salvador, con un sueño simple pero poderoso: ofrecer atención veterinaria de primera con un corazón inmenso. El Dr. <span class="highlight-green">José Rigoberto Medina Cabrera</span> fue pionero en construir la confianza que nos define, y con la visión de nuestra Directora Ejecutiva, la Dra. <span class="highlight-green">Keiry Jussely Amaya Hernández</span>, ese sueño creció hasta convertirse en cinco modernas clínicas. Cada una, diseñada por <span class="highlight-green">Brandon Daniel Medrano Velásquez</span>, es un espacio donde la tecnología se une a la calidez.</p>
+        </div>
+      </div>
+
+      <div class="zipzap left">
+        <img src="img/servicios.webp" alt="Imagen 3" />
+        <div class="text">
+          <p><span class="highlight-black">Servicios Completos para una Vida Plena.</span> Desde un chequeo de rutina hasta una cirugía compleja, en Corazón Canino y Felino tu mascota recibe lo mejor. Contamos con tecnología de diagnóstico avanzada, quirófanos de última generación y un laboratorio propio para resultados rápidos. Pero vamos más allá de la medicina: Consultas y Especialidades: Cuidado experto para cada necesidad, desde dermatología hasta cardiología. Farmacia y Tienda: Todo lo que necesitan, desde medicamentos hasta los mejores alimentos y juguetes, con la garantía de <span class="highlight-green">Brandon Daniel Medrano Velásquez</span>. Estética: Consentimos a tu mascota para que luzca y se sienta increíble.</p>
+        </div>
+      </div>
+
+      <div class="zipzap right">
+        <img src="img/hospedaje.jpg" alt="Hospedaje de lujo" />
+        <div class="text">
+          <p><span class="highlight-black">Hospedaje de Lujo.</span> ¿Vas de viaje? Tu mascota también puede disfrutar. Nuestro exclusivo servicio de hospedaje de lujo, supervisado por <span class="highlight-green">Katherine Yarissa Posada Alvarado</span>, es un "hotel" cinco estrellas para ellos. Caniles climatizados, juegos seguros, paseos diarios y supervisión veterinaria 24/7. Descansa tranquilo, ¡tu mejor amigo estará en las mejores manos!</p>
+        </div>
+      </div>
+
+      <div class="zipzap left">
+        <img src="img/equipo.png" alt="Equipo veterinario" />
+        <div class="text">
+          <p><span class="highlight-black">Un Equipo que Hace la Diferencia.</span> Nuestra fortaleza radica en nuestro equipo. El Lic. <span class="highlight-green">Juan Ricardo Zelaya Umaña</span> asegura que todo funcione a la perfección, mientras <span class="highlight-green">Oscar Gustavo Hernández Flamenco</span> y <span class="highlight-green">Danis Ernesto Portillo Alvarenga</span> lideran la innovación tecnológica para que tu experiencia sea cada vez mejor y más conectada.</p>
+        </div>
+      </div>
+
+      <div class="zipzap right">
+        <img src="img/conpromiso.avif" alt="Cifras" />
+        <div class="text">
+          <p><span class="highlight-black">Corazón Canino y Felino en Cifras: Nuestro Compromiso.</span> Reflejamos nuestra dedicación en el cuidado que brindamos diariamente: 9 consultorios y 3 salas de emergencia. 2 quirófanos y áreas de imagenología, rehabilitación y hospitalización. 28,750 Emergencias atendidas. 76,200 Consultas realizadas. 12,500 Mascotas hospitalizadas. 9,800 Cirugías realizadas. 35,000 Servicios de peluquería.</p>
+        </div>
+      </div>
+
+      <p><span class="highlight-black">Fácil Acceso y Atención 24/7.</span> Agenda tus citas de consulta externa cómodamente en nuestra web o llamando al 185. Y para esas situaciones inesperadas, nuestras emergencias están disponibles las 24 horas, todos los días. Siempre listos para clasificar y atender cada caso con la urgencia que requiere. ¡Te invitamos a visitarnos y ser parte de nuestra gran familia!</p>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2025 Hospital Veterinario Corazón Canino y Felino. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+  const userGreeting = document.getElementById('userGreeting');
+  const loginBtn     = document.getElementById('loginBtn');
+  const logoutBtn    = document.getElementById('logoutBtn');
+
+  const usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo'));
+
+  if (usuarioActivo && usuarioActivo.username) {
+    userGreeting.textContent = `Hola, ${usuarioActivo.username}`;
+    userGreeting.style.display = 'block';
+    loginBtn.style.display = 'none';
+    logoutBtn.style.display = 'inline-block';
+  } else {
+    userGreeting.style.display = 'none';
+    loginBtn.style.display = 'inline-block';
+    logoutBtn.style.display = 'none';
+  }
+
+  logoutBtn.addEventListener('click', () => {
+    localStorage.removeItem('usuarioActivo');
+    location.reload();
+  });
+</script>
+
+</body>
+</html>

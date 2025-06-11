@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Corazón Canino & Felino - Contacto</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #dee9e9;
+      color: #000000;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header con verde */
+    header {
+      background: #23da06;
+      color: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    nav a {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    #loginBtn, #logoutBtn {
+      background: #fff;
+      color: #2fff00;
+      border: none;
+      padding: 6px 12px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-left: 10px;
+    }
+
+    #loginBtn:hover, #logoutBtn:hover {
+      background: #ffc299;
+    }
+
+    /* Saludo fuera de la barra */
+    #userGreeting {
+      color: #004d4d;
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0.5rem 2rem 0 2rem;
+      display: none;
+    }
+
+    /* Sección de contenido */
+    .contact-section {
+      flex-grow: 1;
+      padding: 2rem;
+      max-width: 700px;
+      margin: 1.5rem auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .contact-section h1 {
+      color: #25da0d;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .contact-info p {
+      font-size: 1rem;
+      margin: 0.5rem 0;
+    }
+
+    .contact-info p strong {
+      color: #31e00a;
+    }
+
+    .ticket {
+      margin-top: 2rem;
+      padding: 1rem;
+      border: 2px solid #34db0a;
+      border-radius: 8px;
+      background: #fffaf3;
+    }
+
+    .ticket h2 {
+      margin-top: 0;
+      color: #1aff00;
+      font-size: 1.2rem;
+    }
+
+    .ticket label {
+      display: block;
+      margin: 0.8rem 0 0.3rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .ticket input, .ticket textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    .ticket textarea {
+      resize: vertical;
+      height: 100px;
+    }
+
+    .ticket button {
+      margin-top: 1rem;
+      background: #20dc07;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .ticket button:hover {
+      background: #27db07;
+    }
+
+    footer {
+      background: #0ad71b;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-weight: 600;
+      margin-top: auto;
+    }
+
+    @media (max-width: 700px) {
+      .contact-section {
+        margin: 1rem;
+        padding: 1rem;
+      }
+      .ticket {
+        padding: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="img/logo veterinaria.jpg" alt="Logo" />
+      Corazón Canino & Felino
+    </div>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="productos.html">Productos</a>
+      <a href="expediente.html">Expediente</a>
+      <a href="contacto.html">Contacto</a>
+      <button id="loginBtn" onclick="window.location.href='login.html'">Iniciar Sesión</button>
+      <button id="logoutBtn" style="display:none;">Cerrar Sesión</button>
+    </nav>
+  </header>
+
+  <!-- Saludo fuera de la barra -->
+  <span id="userGreeting"></span>
+
+  <main>
+    <div class="contact-section">
+      <h1>Contacto</h1>
+      <div class="contact-info">
+        <p><strong>Teléfono:</strong> +503 1234 5678</p>
+        <p><strong>Email:</strong> contacto@corazoncaninoyfelino.com</p>
+        <p><strong>Dirección:</strong> Calle Principal #123, San Salvador</p>
+        <p><strong>Horario de Atención:</strong> Lunes a Viernes, 8:00 AM – 6:00 PM</p>
+      </div>
+
+      <div class="ticket">
+        <h2>Envíanos tu mensaje</h2>
+        <form id="ticketForm">
+          <label for="ticketName">Nombre</label>
+          <input type="text" id="ticketName" name="ticketName" placeholder="Tu nombre" required />
+
+          <label for="ticketMessage">Mensaje</label>
+          <textarea id="ticketMessage" name="ticketMessage" placeholder="Escribe tu consulta aquí..." required></textarea>
+
+          <button type="submit">Enviar Mensaje</button>
+        </form>
+        <div id="ticketFeedback" style="margin-top:0.8rem; color:#28a745; display:none;">
+          ¡Gracias por escribirnos! Te responderemos pronto.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Hospital Veterinario Corazón Canino y Felino. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    // Mostrar/ocultar saludo y botones
+    const userGreeting = document.getElementById('userGreeting');
+    const loginBtn     = document.getElementById('loginBtn');
+    const logoutBtn    = document.getElementById('logoutBtn');
+
+    const usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo'));
+    if (usuarioActivo && usuarioActivo.username) {
+      userGreeting.textContent = `Hola, ${usuarioActivo.username}`;
+      userGreeting.style.display = 'inline-block';
+      loginBtn.style.display = 'none';
+      logoutBtn.style.display = 'inline-block';
+    } else {
+      userGreeting.style.display = 'none';
+      loginBtn.style.display = 'inline-block';
+      logoutBtn.style.display = 'none';
+    }
+
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('usuarioActivo');
+      location.reload();
+    });
+
+    // Manejo del ticket
+    const ticketForm = document.getElementById('ticketForm');
+    const ticketFeedback = document.getElementById('ticketFeedback');
+
+    ticketForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      ticketFeedback.style.display = 'block';
+      ticketForm.reset();
+      setTimeout(() => {
+        ticketFeedback.style.display = 'none';
+      }, 5000);
+    });
+  </script>
+
+</body>
+</html>

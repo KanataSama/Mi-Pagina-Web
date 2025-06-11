@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Corazón Canino & Felino - Expediente</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #e0eaea;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #33ce08;
+      color: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      flex-grow: 1;
+    }
+
+    h1 {
+      text-align: center;
+      color: #26d20c;
+    }
+
+    #login-btn, #user-name {
+      background: white;
+      color: #2ccf0b;
+      border: 2px solid white;
+      padding: 6px 14px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    #login-btn:hover {
+      background: white;
+      color: #30cc00;
+      border-color: #1fcc00;
+    }
+
+    .expediente-container {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin: 0.8rem 0 0.3rem 0;
+      font-weight: bold;
+      color: #41cc00;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    #guardar-btn {
+      margin-top: 1.5rem;
+      background: #27d708;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    #guardar-btn:hover {
+      background: #2aca03;
+    }
+
+    #mensaje {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: green;
+      display: none;
+      text-align: center;
+    }
+
+    .citas-section {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #ccc;
+    }
+
+    .cita-item {
+      background: #f0fdf0;
+      padding: 10px;
+      margin-top: 10px;
+      border-left: 4px solid #39d600;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="img/logo veterinaria.jpg" alt="Logo" />
+    <strong>Corazón Canino & Felino</strong>
+  </div>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="servicios.html">Servicios</a>
+    <a href="productos.html">Productos</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="expediente.html">Expediente</a>
+  </nav>
+  <div>
+    <button id="login-btn">Iniciar Sesión / Registro</button>
+    <span id="user-name" style="display:none;"></span>
+  </div>
+</header>
+
+<main>
+  <h1>Expediente de Mascotas</h1>
+  <div class="expediente-container" id="expediente-container">
+    <p style="text-align:center; color: #3ed50c;">Debes iniciar sesión para ver y editar los expedientes.</p>
+  </div>
+</main>
+
+<script>
+  const loginBtn = document.getElementById('login-btn');
+  const userNameSpan = document.getElementById('user-name');
+  const expedienteContainer = document.getElementById('expediente-container');
+
+  function checkUser() {
+    const usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo'));
+    if (usuarioActivo && usuarioActivo.username) {
+      loginBtn.style.display = 'none';
+      userNameSpan.style.display = 'inline';
+      userNameSpan.textContent = usuarioActivo.username;
+      mostrarFormulario(usuarioActivo);
+    } else {
+      loginBtn.style.display = 'inline-block';
+      userNameSpan.style.display = 'none';
+      expedienteContainer.innerHTML = '<p style="text-align:center; color: #cc6600;">Debes iniciar sesión para ver y editar los expedientes.</p>';
+    }
+  }
+
+  loginBtn.addEventListener('click', () => {
+    window.location.href = 'login.html';
+  });
+
+  function mostrarFormulario(usuario) {
+    const expedienteGuardado = localStorage.getItem('expediente_' + usuario.username);
+    const citasGuardadas = JSON.parse(localStorage.getItem('citas_' + usuario.username)) || [];
+    let expedienteData = expedienteGuardado ? JSON.parse(expedienteGuardado) : {};
+
+    expedienteContainer.innerHTML = `
+      <form id="form-expediente">
+        <label for="nombreMascota">Nombre de la mascota:</label>
+        <input type="text" id="nombreMascota" name="nombreMascota" value="${expedienteData.nombreMascota || ''}" required />
+
+        <label for="tipoMascota">Tipo de mascota:</label>
+        <select id="tipoMascota" name="tipoMascota" required>
+          <option value="">-- Selecciona --</option>
+          <option value="Perro" ${expedienteData.tipoMascota === 'Perro' ? 'selected' : ''}>Perro</option>
+          <option value="Gato" ${expedienteData.tipoMascota === 'Gato' ? 'selected' : ''}>Gato</option>
+          <option value="Otro" ${expedienteData.tipoMascota === 'Otro' ? 'selected' : ''}>Otro</option>
+        </select>
+
+        <label for="raza">Raza:</label>
+        <input type="text" id="raza" name="raza" value="${expedienteData.raza || ''}" />
+
+        <label for="edadMascota">Edad:</label>
+        <input type="number" id="edadMascota" name="edadMascota" min="0" value="${expedienteData.edadMascota || ''}" required />
+
+        <label for="descripcion">Descripción / Notas:</label>
+        <textarea id="descripcion" name="descripcion" rows="4">${expedienteData.descripcion || ''}</textarea>
+
+        <div class="citas-section">
+          <h3>Agendar nueva cita</h3>
+          <label for="fechaCita">Fecha:</label>
+          <input type="date" id="fechaCita" name="fechaCita" />
+
+          <label for="horaCita">Hora:</label>
+          <input type="time" id="horaCita" name="horaCita" />
+
+          <label for="motivoCita">Motivo:</label>
+          <textarea id="motivoCita" name="motivoCita" rows="2"></textarea>
+        </div>
+
+        <button type="submit" id="guardar-btn">Guardar Expediente y Cita</button>
+      </form>
+
+      <div id="mensaje"></div>
+
+      <div class="citas-section">
+        <h3>Citas Agendadas</h3>
+        <div id="lista-citas"></div>
+      </div>
+    `;
+
+    const form = document.getElementById('form-expediente');
+    const mensaje = document.getElementById('mensaje');
+    const listaCitas = document.getElementById('lista-citas');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const data = {
+        nombreMascota: form.nombreMascota.value,
+        tipoMascota: form.tipoMascota.value,
+        raza: form.raza.value,
+        edadMascota: form.edadMascota.value,
+        descripcion: form.descripcion.value,
+      };
+      localStorage.setItem('expediente_' + usuario.username, JSON.stringify(data));
+
+      // Guardar cita si hay fecha y motivo
+      if (form.fechaCita.value && form.motivoCita.value) {
+        const nuevaCita = {
+          fecha: form.fechaCita.value,
+          hora: form.horaCita.value,
+          motivo: form.motivoCita.value,
+          nombreMascota: form.nombreMascota.value
+        };
+        citasGuardadas.push(nuevaCita);
+        localStorage.setItem('citas_' + usuario.username, JSON.stringify(citasGuardadas));
+      }
+
+      mensaje.style.display = 'block';
+      mensaje.textContent = 'Expediente y cita guardados correctamente.';
+      setTimeout(() => {
+        mensaje.style.display = 'none';
+      }, 3000);
+
+      mostrarCitas(citasGuardadas);
+    });
+
+    mostrarCitas(citasGuardadas);
+  }
+
+  function mostrarCitas(citas) {
+    const lista = document.getElementById('lista-citas');
+    lista.innerHTML = '';
+    if (citas.length === 0) {
+      lista.innerHTML = '<p>No hay citas registradas.</p>';
+      return;
+    }
+
+    citas.forEach(cita => {
+      const citaEl = document.createElement('div');
+      citaEl.className = 'cita-item';
+      citaEl.innerHTML = `
+        <strong>Mascota:</strong> ${cita.nombreMascota}<br>
+        <strong>Fecha:</strong> ${cita.fecha} <strong>Hora:</strong> ${cita.hora || 'N/A'}<br>
+        <strong>Motivo:</strong> ${cita.motivo}
+      `;
+      lista.appendChild(citaEl);
+    });
+  }
+
+  checkUser();
+</script>
+
+</body>
+</html>

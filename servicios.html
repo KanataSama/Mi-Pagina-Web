@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Corazón Canino & Felino - Servicios</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #dfe6e8;
+      color: #000000;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header con colores verdes según tu ejemplo */
+    header {
+      background: #23da06;
+      color: rgb(255, 255, 255);
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    nav a {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    #loginBtn, #logoutBtn {
+      background: #fff;
+      color: #2fff00;
+      border: none;
+      padding: 6px 12px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-left: 10px;
+    }
+
+    #loginBtn:hover, #logoutBtn:hover {
+      background: #ffc299;
+    }
+
+    /* Saludo afuera de la barra, mismo estilo que en index.html */
+    #userGreeting {
+      color: #004d4d;
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0.5rem 2rem 0 2rem;
+      display: none;
+    }
+
+    .services-section {
+      flex-grow: 1;
+      padding: 2rem;
+      max-width: 1000px;
+      margin: 1.5rem auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .services-section h1 {
+      color: #25da0d;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+
+    .card {
+      background: white;
+      border: 2px solid #34db0a;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      flex: 1 1 250px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .card h3 {
+      margin-bottom: 0.5rem;
+      color: #25da0d;
+    }
+
+    .card p {
+      color: #555;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      background: #0ad71b;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      margin-top: auto;
+      font-weight: 600;
+    }
+
+    @media (max-width: 700px) {
+      .cards {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="img/logo veterinaria.jpg" alt="Logo" />
+      Corazón Canino & Felino
+    </div>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="productos.html">Productos</a>
+      <a href="expediente.html">Expediente</a>
+      <a href="contacto.html">Contacto</a>
+      <button id="loginBtn" onclick="window.location.href='login.html'">Iniciar Sesión</button>
+      <button id="logoutBtn" style="display:none;">Cerrar Sesión</button>
+    </nav>
+  </header>
+
+  <!-- Saludo del usuario fuera de la barra -->
+  <span id="userGreeting"></span>
+
+  <div class="services-section">
+    <h1>Servicios</h1>
+    <div class="cards">
+      <div class="card">
+        <h3>Consultas Especializadas</h3>
+        <p>Cardiología, dermatología, ortopedia y más.</p>
+      </div>
+      <div class="card">
+        <h3>Farmacia y Tienda</h3>
+        <p>Todo para tu mascota con garantía de calidad.</p>
+      </div>
+      <div class="card">
+        <h3>Estética Canina</h3>
+        <p>Baño, corte y cuidado profesional para consentirlos.</p>
+      </div>
+      <div class="card">
+        <h3>Hospedaje VIP</h3>
+        <p>Hotel 5 estrellas para mascotas con supervisión 24/7.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Hospital Veterinario Corazón Canino y Felino. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    const userGreeting = document.getElementById('userGreeting');
+    const loginBtn     = document.getElementById('loginBtn');
+    const logoutBtn    = document.getElementById('logoutBtn');
+
+    const usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo'));
+    if (usuarioActivo && usuarioActivo.username) {
+      userGreeting.textContent = `Hola, ${usuarioActivo.username}`;
+      userGreeting.style.display = 'block';
+      loginBtn.style.display = 'none';
+      logoutBtn.style.display = 'inline-block';
+    } else {
+      userGreeting.style.display = 'none';
+      loginBtn.style.display = 'inline-block';
+      logoutBtn.style.display = 'none';
+    }
+
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('usuarioActivo');
+      location.reload();
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Corazón Canino y Felino - Productos</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #686b6b2e;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #03c503;
+      color: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      flex-grow: 1;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1bd121;
+    }
+
+    #product-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .product-card {
+      border: 2px solid #ffffff;
+      border-radius: 10px;
+      width: 250px;
+      padding: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      background: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .product-card img {
+      width: 100%;
+      max-height: 160px;
+      object-fit: contain;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .product-card h3 {
+      margin: 0.5rem 0;
+      color: #1dc920;
+    }
+
+    .product-card p {
+      font-size: 0.9rem;
+      margin: 0.5rem 0;
+      flex-grow: 1;
+    }
+
+    .product-card .price {
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .product-card button {
+      background: #14cb11;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .product-card button:hover {
+      background: #30c413;
+    }
+
+    #cart {
+      background: #ffffff;
+      padding: 1rem 2rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      position: fixed;
+      right: 0;
+      top: 70px;
+      width: 320px;
+      max-height: calc(100vh - 80px);
+      overflow-y: auto;
+      border-left: 3px solid #31d51c;
+    }
+
+    #cart h2 {
+      color: #24ca15;
+      text-align: center;
+    }
+
+    #cart-items {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1rem 0;
+    }
+
+    #cart-items li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+      border-bottom: 1px solid #faf9f9;
+      padding-bottom: 0.3rem;
+    }
+
+    #cart-items li .item-info {
+      flex-grow: 1;
+      margin-right: 10px;
+    }
+
+    #cart-items li button {
+      background: #cc4444;
+      border: none;
+      color: white;
+      border-radius: 3px;
+      cursor: pointer;
+      padding: 2px 6px;
+    }
+
+    #cart .total {
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    #buy-btn {
+      width: 100%;
+      background: #10cd13;
+      color: white;
+      border: none;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    #buy-btn:hover {
+      background: #caf704;
+    }
+
+    @media (max-width: 950px) {
+      #cart {
+        position: static;
+        width: 100%;
+        max-height: none;
+        border-left: none;
+        margin-top: 2rem;
+      }
+
+      #product-list {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="img/logo veterinaria.jpg" alt="Logo" />
+    <strong>Corazón Canino & Felino</strong>
+  </div>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="servicios.html">Servicios</a>
+    <a href="productos.html">Productos</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="expediente.html">Expediente</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Productos</h1>
+  <div id="product-list"></div>
+</main>
+
+<aside id="cart">
+  <h2>Carrito de Compras</h2>
+  <ul id="cart-items">
+    <li class="empty">El carrito está vacío</li>
+  </ul>
+  <div class="total">Total: $0</div>
+  <button id="buy-btn">Comprar</button>
+</aside>
+
+<script>
+  const products = [
+    { nombre: 'Shampoo para perros', precio: 25, descripcion: 'Limpieza suave que cuida la piel y pelaje de tu perro.', imagen: 'img/shampo.webp' },
+    { nombre: 'Alimento balanceado', precio: 40, descripcion: 'Nutrición completa y deliciosa para mascotas saludables.', imagen: 'img/alimento.jpeg' },
+    { nombre: 'Collares y correas', precio: 30, descripcion: 'Accesorios resistentes y cómodos para paseos seguros.', imagen: 'img/collar.webp' },
+    { nombre: 'Antibioticos', precio: 50, descripcion: 'Productos para el cuidado y tratamiento de tu mascota.', imagen: 'img/anti.jpeg' },
+    { nombre: 'Juguetes para gatos', precio: 15, descripcion: 'Diversión asegurada con juguetes interactivos y seguros.', imagen: 'img/cat.jpg' },
+    { nombre: 'Cepillos para mascotas', precio: 20, descripcion: 'Cepillos suaves que eliminan el pelo muerto sin dañar la piel.', imagen: 'img/cepillos.jpeg' },
+    { nombre: 'Camas para perros', precio: 60, descripcion: 'Camas acolchadas para el mejor descanso de tu mascota.', imagen: 'img/camas.avif' },
+    { nombre: 'Platos y bebederos', precio: 18, descripcion: 'Utensilios higiénicos y resistentes para comida y agua.', imagen: 'img/platos.jpg' },
+    { nombre: 'Snacks saludables', precio: 12, descripcion: 'Premios nutritivos para entrenar o consentir.', imagen: 'img/snack.avif' },
+    { nombre: 'Ropa para perros', precio: 35, descripcion: 'Ropa cómoda y con estilo para todas las temporadas.', imagen: 'img/ropa dog.jpg' },
+    { nombre: 'Antipulgas', precio: 45, descripcion: 'Protege contra pulgas, garrapatas y otros parásitos.', imagen: 'img/antipulgas.jpg' },
+    { nombre: 'Transportadoras', precio: 70, descripcion: 'Viaja seguro y cómodo con tu mascota.', imagen: 'img/transpor.jpeg' },
+    { nombre: 'Arena para gatos', precio: 22, descripcion: 'Arena absorbente y sin olores para tu gato.', imagen: 'img/arena.jpeg' },
+    { nombre: 'Rascadores para gatos', precio: 50, descripcion: 'Ideal para el entretenimiento y salud de sus uñas.', imagen: 'img/rascadores.webp' },
+    { nombre: 'Vitaminas y suplementos', precio: 28, descripcion: 'Complementos esenciales para su salud y energía.', imagen: 'img/suple.jpg' }
+  ];
+
+  const productList = document.getElementById('product-list');
+  const cartItems = document.getElementById('cart-items');
+  const totalEl = document.querySelector('#cart .total');
+  const buyBtn = document.getElementById('buy-btn');
+
+  let cart = [];
+
+  function renderProducts() {
+    productList.innerHTML = '';
+    products.forEach((product, index) => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+        <img src="${product.imagen}" alt="${product.nombre}" />
+        <h3>${product.nombre}</h3>
+        <p>${product.descripcion}</p>
+        <div class="price">$${product.precio}</div>
+        <button data-index="${index}">Agregar al carrito</button>
+      `;
+      productList.appendChild(card);
+    });
+  }
+
+  function renderCart() {
+    cartItems.innerHTML = '';
+    if (cart.length === 0) {
+      cartItems.innerHTML = '<li class="empty">El carrito está vacío</li>';
+      totalEl.textContent = 'Total: $0';
+      buyBtn.disabled = true;
+      return;
+    }
+    buyBtn.disabled = false;
+    let total = 0;
+    cart.forEach((item, i) => {
+      total += item.precio * item.cantidad;
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <div class="item-info">${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad}</div>
+        <button data-index="${i}">X</button>
+      `;
+      cartItems.appendChild(li);
+    });
+    totalEl.textContent = `Total: $${total}`;
+  }
+
+  function addToCart(index) {
+    const product = products[index];
+    const found = cart.find(item => item.nombre === product.nombre);
+    if (found) {
+      found.cantidad++;
+    } else {
+      cart.push({...product, cantidad: 1});
+    }
+    renderCart();
+  }
+
+  function removeFromCart(index) {
+    cart.splice(index, 1);
+    renderCart();
+  }
+
+  productList.addEventListener('click', e => {
+    if (e.target.tagName === 'BUTTON') {
+      const index = e.target.getAttribute('data-index');
+      addToCart(Number(index));
+    }
+  });
+
+  cartItems.addEventListener('click', e => {
+    if (e.target.tagName === 'BUTTON') {
+      const index = e.target.getAttribute('data-index');
+      removeFromCart(Number(index));
+    }
+  });
+
+  buyBtn.addEventListener('click', () => {
+    if (cart.length === 0) {
+      alert('Tu carrito está vacío');
+      return;
+    }
+    alert(`Gracias por tu compra! Total a pagar: $${cart.reduce((acc, i) => acc + i.precio * i.cantidad, 0)}`);
+    cart = [];
+    renderCart();
+  });
+
+  renderProducts();
+  renderCart();
+</script>
+
+</body>
+</html>
